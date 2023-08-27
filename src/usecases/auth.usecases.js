@@ -22,3 +22,5 @@ const logIn = async ({ email, password }) => {
 
   return token;
 };
+
+module.exports = logIn;

@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { login } = require('../usecases/auth.usecases');
+const logIn = require('../usecases/auth.usecases');
 
 const router = Router();
 
@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
   try {
     const credentials = req.body;
 
-    const token = await login(credentials);
+    const token = await logIn(credentials);
 
     res.json({ message: 'Login successful', token });
   } catch (err) {

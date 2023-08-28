@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const users = require('../usecases/users.usecases')
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
       const titleFilter = request.query.title;
       const allUsers = await users.getAll(titleFilter)

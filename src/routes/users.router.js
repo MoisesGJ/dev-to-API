@@ -62,5 +62,24 @@ router.get('/:id', async(req,res) => {
    }
 });
 
+router.delete('/:id', async(req,res) => {
+   try {
+    const id = req.params.id;
+    const userbyIDDeleted = await users.deleteByID(id);
+    res.json({
+        message: 'User deleted: ',
+        data: {
+            user: userbyIDDeleted,
+        }
+    })
+   } catch (error) {
+    res.status(error.status || 500);
+    res.json({
+        message: 'Something went wrong',
+        error: error.message,
+    })
+   }
+})
+
 
 module.exports = router;

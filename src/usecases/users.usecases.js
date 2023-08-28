@@ -38,7 +38,23 @@ async function getById (id) {
     }
     const user = await User.findById(id);
     return user;
+};
+
+//Delete by ID
+
+
+async function deleteByID(id) {
+    if(!mongoose.isValidObjectId(id)) {
+        throw new createError(404, 'User not found, try again');
+    };
+    const userDeleted = await User.findByIdAndDelete(id);
+    if(!userDeleted) {
+        throw new createError(404, 'User Not Found')
+    };
+
+    return userDeleted;
 }
+
 
 
 
@@ -46,4 +62,5 @@ module.exports = {
     getAll,
     create,
     getById,
+    deleteByID,
 }

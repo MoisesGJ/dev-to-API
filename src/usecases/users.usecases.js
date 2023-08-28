@@ -17,12 +17,12 @@ async function create(userData) {
         throw new createError(412, 'Email ya usado')
     };
 
-    const passwordRexex = new RegExp(
-        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
-    );
-    if (!passwordRexex.text(userData.password)) {
-        throw new createError(400, 'Passwrod too weak')
-    };
+    // const passwordRexex = new RegExp(
+    //     "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+    // );
+    // if (!passwordRexex.text(userData.password)) {
+    //     throw new createError(400, 'Passwrod too weak')
+    // };
 
     userData.password = bcrypt.encryptPassword(userData.password);
 
@@ -34,4 +34,5 @@ async function create(userData) {
 
 module.exports = {
     getAll,
+    create,
 }

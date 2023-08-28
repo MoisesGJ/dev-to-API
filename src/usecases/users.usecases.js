@@ -55,6 +55,24 @@ async function deleteByID(id) {
     return userDeleted;
 }
 
+// Patch by ID
+
+async function updateByID(id, dataToUpdate) {
+    if(!mongoose.isValidObjectId(id)) {
+        throw new createError(400, 'Invalid ID')
+    };
+
+    const userUpdated = await User.findByIdAndUpdate(id, dataToUpdate, {
+        new: true,
+        runValidators: true,
+    });
+
+    if(!userUpdated) {
+        throw new createError(404, 'Invalid info or user not found');
+    };
+    return userUpdated;
+}
+
 
 
 
@@ -63,4 +81,5 @@ module.exports = {
     create,
     getById,
     deleteByID,
+    updateByID,
 }

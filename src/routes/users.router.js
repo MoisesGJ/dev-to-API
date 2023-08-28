@@ -81,5 +81,28 @@ router.delete('/:id', async(req,res) => {
    }
 })
 
+router.patch('/:id', async(req,res) => {
+   try {
+    const { id } = req.params;
+    const data = req.body;
+
+    const userUpdated = await users.updateByID(id, data);
+
+    res.json({
+        message: "User updated",
+        data: {
+            user: userUpdated,
+        }
+    })
+   } catch (error) {
+    const status = error.name === 'ValidationError' ? 400 : 500
+    res.status(error.status || status);
+    res.json({
+        message: "Something went wrong",
+        error: error.message,
+    });
+   } 
+})
+
 
 module.exports = router;

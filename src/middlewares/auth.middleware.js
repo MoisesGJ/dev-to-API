@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 
-const { verify } = require('../lib/jwt');
+const { verifyToken } = require('../lib/jwt');
 
 const auth = (req, res, next) => {
   try {
@@ -8,9 +8,9 @@ const auth = (req, res, next) => {
 
     if (!auth) throw new createHttpError(401, 'Token required');
 
-    const token = auth.split('Bearer ', '');
+    const token = auth.replace('Bearer ', '');
 
-    const payload = verify(token);
+    const payload = verifyToken(token);
 
     if (!payload) throw new createHttpError(401, 'Could not verify token');
 

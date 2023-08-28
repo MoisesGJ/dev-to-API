@@ -1,8 +1,8 @@
 const createHttpError = require('http-errors');
 
 const Users = require('../models/users.model');
-const { compareSync } = require('../lib/bcrypt');
-const { sign } = require('../lib/jwt');
+const { comparePasswordWithHash } = require('../lib/bcrypt');
+const { createToken } = require('../lib/jwt');
 
 const logIn = async ({ email, password }) => {
   const user = await Users.findOne({ email });
@@ -11,14 +11,14 @@ const logIn = async ({ email, password }) => {
 
   const passwordHash = user.password;
 
-  const isValidPassword = compareSync(password, passwordHash);
+  const isValidPassword = comparePasswordWithHash(password, passwordHash);
 
   if (!isValidPassword)
     throw new createHttpError(401, 'Email or password invalids.');
 
-  const userID = user.__id;
+  const userID = user._id;
 
-  const token = sign({ id: userID });
+  const token = createToken({ id: userID });
 
   return token;
 };

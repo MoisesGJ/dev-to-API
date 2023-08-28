@@ -1,7 +1,25 @@
-const { Router } = require('express');
+const express = require('express')
+const router = express.Router();
+const users = require('../usecases/users.usecases')
 
-const router = Router();
+router.get('/', async (req, res) => {
+    try {
+      const titleFilter = request.query.title;
+      const allUsers = await users.getAll(titleFilter)
+      res.json({
+        message: 'User-List',
+        data: {
+            users: allUsers
+        }
+      })
+    } catch (error) {
+        res.status(500);
+        res.json({
+            message: 'Something went wrong'
+        })
+    }
+});
 
-router.get('/', (req, res) => res.json({ message: 'GET / [USERS]' }));
+
 
 module.exports = router;

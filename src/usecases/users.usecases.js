@@ -28,6 +28,16 @@ async function create(userData) {
 
     const newUser = await User.create(userData);
     return newUser;
+};
+
+// Find by ID
+
+async function getById (id) {
+    if(!mongoose.isValidObjectId(id)) {
+        throw new createError(400, 'Invalid ID');
+    }
+    const user = await User.findById(id);
+    return user;
 }
 
 
@@ -35,4 +45,5 @@ async function create(userData) {
 module.exports = {
     getAll,
     create,
+    getById,
 }

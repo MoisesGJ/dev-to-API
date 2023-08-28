@@ -40,7 +40,27 @@ router.post('/', async(req,res) => {
             error: error.message,
         })
     }
-})
+});
+
+router.get('/:id', async(req,res) => {
+   try {
+
+    const id = req.params.id;
+    const user = await users.getById(id);
+    res.json({
+        message: `User ${id}`,
+        data: { user },
+    });
+
+   } catch (error) {
+
+    res.status(error.status || 500);
+    res.json ({
+        message: 'Wrong input data',
+        error: error.message,
+    });
+   }
+});
 
 
 module.exports = router;

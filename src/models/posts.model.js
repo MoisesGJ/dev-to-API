@@ -7,17 +7,20 @@ const postSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+    required: true,
+    match:
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/,
   },
   body: {
     type: String,
     required: true,
   },
-  user: {
-    type: mongoose.SchemaTypes.ObjectId,
-    required: true,
-    ref: "user",
-    trim: true,
-  },
+  //   user: {
+  //     type: mongoose.SchemaTypes.ObjectId,
+  //     required: true,
+  //     ref: "user",
+  //     trim: true,
+  //   },
   createdAt: {
     type: Date,
     required: true,

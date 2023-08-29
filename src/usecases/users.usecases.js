@@ -1,85 +1,80 @@
 const mongoose = require('mongoose');
-const User = require('../models/users.model')
+const User = require('../models/users.model');
 const createError = require('http-errors');
-const bcrypt = require ('../lib/bcrypt')
-
+const bcrypt = require('../lib/bcrypt');
 
 //Get all users listed
 async function getAll(titleFilter) {
-    const allUsers = await User.find();
-    return allUsers;
-};
+  const allUsers = await User.find();
+  return allUsers;
+}
 
-// Create a new user 
+// Create a new user
 async function create(userData) {
-    const existingUser = await User.findOne({ email: userData.email});
-    if (existingUser) {
-        throw new createError(412, 'Email ya usado')
-    };
+  const existingUser = await User.findOne({ email: userData.email });
+  if (existingUser) {
+    throw new createError(412, 'Email ya usado');
+  }
 
-    // const passwordRexex = new RegExp(
-    //     "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
-    // );
-    // if (!passwordRexex.text(userData.password)) {
-    //     throw new createError(400, 'Passwrod too weak')
-    // };
+  const passwordRexex = new RegExp(
+    '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'
+  );
+  if (!passwordRexex.test(userData.password)) {
+    throw new createError(400, 'Passwrod too weak');
+  }
 
-    userData.password = bcrypt.encryptPassword(userData.password);
+  userData.password = bcrypt.encryptPassword(userData.password);
 
-    const newUser = await User.create(userData);
-    return newUser;
-};
+  const newUser = await User.create(userData);
+  return newUser;
+}
 
 // Find by ID
 
-async function getById (id) {
-    if(!mongoose.isValidObjectId(id)) {
-        throw new createError(400, 'Invalid ID');
-    }
-    const user = await User.findById(id);
-    return user;
-};
+async function getById(id) {
+  if (!mongoose.isValidObjectId(id)) {
+    throw new createError(400, 'Invalid ID');
+  }
+  const user = await User.findById(id);
+  return user;
+}
 
 //Delete by ID
 
-
 async function deleteByID(id) {
-    if(!mongoose.isValidObjectId(id)) {
-        throw new createError(404, 'User not found, try again');
-    };
-    const userDeleted = await User.findByIdAndDelete(id);
-    if(!userDeleted) {
-        throw new createError(404, 'User Not Found')
-    };
+  if (!mongoose.isValidObjectId(id)) {
+    throw new createError(404, 'User not found, try again');
+  }
+  const userDeleted = await User.findByIdAndDelete(id);
+  if (!userDeleted) {
+    throw new createError(404, 'User Not Found');
+  }
 
-    return userDeleted;
+  return userDeleted;
 }
 
 // Patch by ID
 
 async function updateByID(id, dataToUpdate) {
-    if(!mongoose.isValidObjectId(id)) {
-        throw new createError(400, 'Invalid ID')
-    };
+  if (!mongoose.isValidObjectId(id)) {
+    throw new createError(400, 'Invalid ID');
+  }
 
-    const userUpdated = await User.findByIdAndUpdate(id, dataToUpdate, {
-        new: true,
-        runValidators: true,
-    });
+  const userUpdated = await User.findByIdAndUpdate(id, dataToUpdate, {
+    new: true,
+    runValidators: true,
+  });
 
-    if(!userUpdated) {
-        throw new createError(404, 'Invalid info or user not found');
-    };
-    return userUpdated;
+  if (!userUpdated) {
+    throw new createError(404, 'Invalid info or user not found');
+  }
+  return userUpdated;
 }
-
-
-
 
 module.exports = {
-    getAll,
-    create,
-    getById,
-    deleteByID,
-    updateByID,
-}
+  getAll,
+  create,
+  getById,
+  deleteByID,
+  updateByID,
+};

@@ -1,14 +1,24 @@
 {
-  "name": "devto-backend",
+  "name": "dev-to-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Desarrollo de una API para replicar la funcionalidad de la plataforma Dev.to, permitiendo a los usuarios crear, publicar y gestionar contenido en una comunidad de desarrolladores en línea.",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
     "dev": "nodemon main.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoisesGJ/dev-to-API.git"
+  },
+  "keywords": [
+    "API",
+    "Backend",
+    "Dev.to",
+    "Kodemia",
+    "Express.js"
+],
+  "author": "Daniel, Emanuel y Moisés",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

@@ -23,10 +23,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const postData = req.body;
     const newPost = await posts.create(postData);
+
     res.status(201).json({
       message: "Post created successfully",
       data: {
@@ -66,12 +67,13 @@ router.patch("/:id", async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
-    const authorization = req.headers.authorization;
-    const token = authorization.replace("Bearer ", "");
+    const autho = req.headers.authorization;
+    const token = autho.replace("Bearer ", "");
     const dataId = token.split(".");
     const payload = JSON.parse(atob(dataId[1]));
     const userId = payload.id;
 
+    console.log("por aqui pase");
     const { id } = req.params;
     const postDeleted = await posts.deleteById(id, userId);
 

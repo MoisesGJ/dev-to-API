@@ -35,7 +35,10 @@ async function deleteById(id, userId) {
   const dataPost = await Post.findById(id);
   const userPostId = dataPost.user.toString();
 
+  console.log(dataPost);
+
   if (userPostId === userId) {
+    console.log("que rollo?");
     const postDeleted = await Post.findByIdAndDelete(id);
     if (!postDeleted) {
       throw new createError(404, "Post not found");

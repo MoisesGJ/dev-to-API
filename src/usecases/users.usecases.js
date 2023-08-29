@@ -17,12 +17,12 @@ async function create(userData) {
         throw new createError(412, 'Email ya usado')
     };
 
-    // const passwordRexex = new RegExp(
-    //     "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
-    // );
-    // if (!passwordRexex.text(userData.password)) {
-    //     throw new createError(400, 'Passwrod too weak')
-    // };
+    const passwordRexex = new RegExp(
+        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+    );
+    if (!passwordRexex.test(userData.password)) {
+        throw new createError(400, 'Passwrod too weak')
+    };
 
     userData.password = bcrypt.encryptPassword(userData.password);
 
@@ -31,7 +31,6 @@ async function create(userData) {
 };
 
 // Find by ID
-
 async function getById (id) {
     if(!mongoose.isValidObjectId(id)) {
         throw new createError(400, 'Invalid ID');
@@ -39,10 +38,7 @@ async function getById (id) {
     const user = await User.findById(id);
     return user;
 };
-
 //Delete by ID
-
-
 async function deleteByID(id) {
     if(!mongoose.isValidObjectId(id)) {
         throw new createError(404, 'User not found, try again');
@@ -54,9 +50,7 @@ async function deleteByID(id) {
 
     return userDeleted;
 }
-
 // Patch by ID
-
 async function updateByID(id, dataToUpdate) {
     if(!mongoose.isValidObjectId(id)) {
         throw new createError(400, 'Invalid ID')

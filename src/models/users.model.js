@@ -24,6 +24,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
+        match: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
+    },
+    profilePic: {
+        type: String,
+        required: true,
+        match: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/
+        trim: true,
     },
     created: {
         type: Date,

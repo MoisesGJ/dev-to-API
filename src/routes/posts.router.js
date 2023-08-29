@@ -1,11 +1,14 @@
 const { Router } = require("express");
 const posts = require("../usecases/posts.usecases");
+const auth = require("../middlewares/auth.middleware");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const allPosts = await posts.getAll();
+    const titleFilter = req.query.search;
+    const allPosts = await posts.getAll(titleFilter);
+
     res.json({
       message: "post",
       posts: {
@@ -61,10 +64,16 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
+    const authorization = req.headers.authorization;
+    const token = authorization.replace("Bearer ", "");
+    const dataId = token.split(".");
+    const payload = JSON.parse(atob(dataId[1]));
+    const userId = payload.id;
+
     const { id } = req.params;
-    const postDeleted = await posts.deleteById(id);
+    const postDeleted = await posts.deleteById(id, userId);
 
     res.json({
       message: "Post deleted successfully",

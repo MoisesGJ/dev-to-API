@@ -4,6 +4,7 @@ const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    trim: true,
   },
   image: {
     type: String,
@@ -15,12 +16,12 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //   user: {
-  //     type: mongoose.SchemaTypes.ObjectId,
-  //     required: true,
-  //     ref: "user",
-  //     trim: true,
-  //   },
+  user: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true,
+    ref: "user",
+    trim: true,
+  },
   createdAt: {
     type: Date,
     required: true,

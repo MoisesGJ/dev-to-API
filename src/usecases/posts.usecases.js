@@ -51,15 +51,8 @@ async function updateById(id, postData) {
     throw new createError(400, "Invalid id");
   }
   if (postData.user) {
-    if (!mongoose.isValidObjectId(postData.user)) {
-      throw new createError(400, "Invalid user id");
-    }
-    const user = await User.findById(postData.user);
-    if (!user) {
-      throw new createError(404, "User not found");
-    }
+    throw new createError(401, "You can't modify the user's information");
   }
-
   postData.updatedAt = new Date();
 
   const postUpdated = await Post.findByIdAndUpdate(id, postData, {

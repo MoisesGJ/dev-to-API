@@ -4,7 +4,7 @@
 
 ## API: https://dev-to-api-x5st-dev.fl0.io/
 
-### Docu: https://chat.openai.com/share/81c4025c-f864-4a12-bd5e-c8726aea54b5
+## Documentación: https://dev-to-api-x5st-dev.fl0.io/DOCUMENTACION
 
 #### Nos dio flojera la docu jeje
 

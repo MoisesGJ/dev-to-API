@@ -1,44 +1,25 @@
 # Dev-To-API
 
-### Integrantes:
+## Integrantes:
 
-- Emanuel
-- Daniel
-- Moisés
+- Emanuel | **@MANOLOOG**
+- Daniel | **@HollowZll**
+- Moisés | **@MoisesGJ**
 
-## API URL: https://dev-to-api-x5st-dev.fl0.io/
+## API URL:
 
-## Ejemplos en insomnia (JSON):
+- https://dev-to-api-x5st-dev.fl0.io/
 
-- [API URL JSON](https://dev-to-api-x5st-dev.fl0.io/DOCUMENTACION)
-- [Archivo JSON](https://github.com/MoisesGJ/dev-to-API/blob/main/INSOMNIA.json)
+## Ejemplos para importar en insomnia (JSON):
+
+- [En nuestra API (/documentacion)](https://dev-to-api-x5st-dev.fl0.io/DOCUMENTACION)
+- [Desde un archivo (./INSOMNIA.json)](https://github.com/MoisesGJ/dev-to-API/blob/main/INSOMNIA.json)
 
 ---
 
 ## Documentación:
 
 ### Usuarios
-
-#### Obtener lista de usuarios
-
-- **URL:** `/users`
-- **Método:** GET
-- **Descripción:** Obtiene una lista de todos los usuarios registrados.
-- **Respuesta Exitosa (200 OK):**
-  ```json
-  [
-    {
-      "id": 64ee17e3acd8b24acb385926 ,
-      "name": "John Doe",
-      "email": "john.doe@example.com"
-    },
-    {
-      "id": 64ee17e3acd8b24acb385926,
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com"
-    }
-  ]
-  ```
 
 #### Crear un usuario nuevo
 
@@ -57,7 +38,8 @@
   {
     "id": 64ee17e3acd8b24acb385926,
     "name": "Nuevo Usuario",
-    "email": "nuevo.usuario@example.com"
+    "email": "nuevo.usuario@example.com",
+    ...
   }
   ```
 
@@ -71,7 +53,30 @@
   {
     "id": 64ee17e3acd8b24acb385926,
     "name": "John Doe",
-    "email": "john.doe@example.com"
+    "email": "john.doe@example.com",
+    ...
+  }
+  ```
+
+### Autorización
+
+#### Obtener autorización
+
+- **URL:** `/auth/login`
+- **Método:** POST
+- **Descripción:** Obtiene un token de autorización.
+- **Datos de Entrada:**
+  ```json
+  {
+    "email": "nuevo.usuario@example.com",
+    "password": "gr3at@3wdsG"
+  }
+  ```
+- **Respuesta Exitosa (200 OK):**
+  ```json
+  {
+    ...,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
   }
   ```
 
@@ -89,13 +94,15 @@
       "id": 1,
       "title": "Mi primera publicación",
       "body": "Este es el contenido de mi primera publicación.",
-      "user": 64ee17e3acd8b24acb385926
+      "user": 64ee17e3acd8b24acb385926,
+      ...
     },
     {
       "id": 2,
       "title": "Otra publicación",
       "body": "Contenido de otra publicación interesante.",
-      "user": 64ee17e3acd8b24acb385926
+      "user": 64ee17e3acd8b24acb385926,
+      ...
     }
   ]
   ```
@@ -104,13 +111,15 @@
 
 - **URL:** `/posts`
 - **Método:** POST
+- ⚠️ **Requiere autorización**
 - **Descripción:** Crea una nueva publicación.
 - **Datos de Entrada:**
   ```json
   {
     "title": "Nueva Publicación",
     "body": "Contenido de la nueva publicación.",
-    "user": 64ee17e3acd8b24acb385926
+    "user": 64ee17e3acd8b24acb385926,
+    ...
   }
   ```
 - **Respuesta Exitosa (201 Created):**
@@ -119,7 +128,8 @@
     "id": 3,
     "title": "Nueva Publicación",
     "body": "Contenido de la nueva publicación.",
-    "user": 64ee17e3acd8b24acb385926
+    "user": 64ee17e3acd8b24acb385926,
+    ...
   }
   ```
 
@@ -129,11 +139,44 @@
 - **Método:** GET
 - **Descripción:** Obtiene información sobre una publicación específica.
 - **Respuesta Exitosa (200 OK):**
+
   ```json
   {
     "id": 1,
     "title": "Mi primera publicación",
     "body": "Este es el contenido de mi primera publicación.",
-    "user": 64ee17e3acd8b24acb385926
+    "user": 64ee17e3acd8b24acb385926,
+    ...
+  }
+  ```
+
+  #### Editar información de una publicación
+
+- **URL:** `/posts/:id`
+- **Método:** PATCH
+- ⚠️ **Requiere autorización**
+- **Descripción:** Para permitir actualizar un post
+- **Respuesta Exitosa (200 OK):**
+
+  ```json
+  {
+    "title": "Mi publicación editada",
+    ...
+  }
+  ```
+
+  #### Eliminar información de una publicación
+
+- **URL:** `/posts/:id`
+- **Método:** DELETE
+- ⚠️ **Requiere autorización**
+- **Descripción:** Para permitir borrar un post
+- **Respuesta Exitosa (200 OK):**
+  ```json
+  {
+    "title": "Nueva Publicación",
+    "body": "Contenido de la nueva publicación.",
+    "user": 64ee17e3acd8b24acb385926,
+    ...
   }
   ```

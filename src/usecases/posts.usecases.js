@@ -3,8 +3,13 @@ const Post = require('../models/posts.model');
 const User = require('../models/users.model');
 const createError = require('http-errors');
 
-async function getAll(idFilter) {
+async function getAll(titleFilter, idFilter) {
   const filters = {};
+
+  if (titleFilter) {
+    filters.title = new RegExp(titleFilter, 'i');
+    console.log(filters);
+  }
   if (idFilter) {
     if (!mongoose.isValidObjectId(idFilter)) {
       throw new createError(404, 'Post not found');

@@ -6,8 +6,10 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const idFilter = req.query.search;
-    const allPosts = await posts.getAll(idFilter);
+    const titleFilter = req.query.search;
+
+    const idFilter = req.query.id;
+    const allPosts = await posts.getAll(titleFilter, idFilter);
 
     res.json({
       message: 'post',

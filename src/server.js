@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const authRouter = require('./routes/auth.router');
 const usersRouter = require('./routes/users.router');
@@ -6,6 +7,7 @@ const postsRouter = require('./routes/posts.router');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => res.json({ message: 'Dev-To API | v1.0.0' }));

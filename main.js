@@ -7,7 +7,7 @@ const USER = process.env.USER_DB;
 const PASSWORD = process.env.PASSWORD_DB;
 const HOST = process.env.HOST_DB;
 const NAME = process.env.NAME_DB;
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT;
 
 mongoose
   .connect(`mongodb+srv://${USER}:${PASSWORD}@${HOST}/${NAME}`)

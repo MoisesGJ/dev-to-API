@@ -1,12 +1,21 @@
 # Dev-To-API
 
-### Integrantes: Emanuel, Daniel y Moisés
+### Integrantes:
+
+- Emanuel
+- Daniel
+- Moisés
 
 ## API URL: https://dev-to-api-x5st-dev.fl0.io/
 
-## Documentación: https://dev-to-api-x5st-dev.fl0.io/DOCUMENTACION
+## Ejemplos en insomnia (JSON):
 
-## [Click: JSON DE INSOMNIA](https://github.com/MoisesGJ/dev-to-API/blob/main/INSOMNIA.json)
+- [API URL JSON](https://dev-to-api-x5st-dev.fl0.io/DOCUMENTACION)
+- [Archivo JSON](https://github.com/MoisesGJ/dev-to-API/blob/main/INSOMNIA.json)
+
+---
+
+## Documentación:
 
 ### Usuarios
 

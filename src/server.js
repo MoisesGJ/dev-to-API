@@ -17,7 +17,7 @@ app.get('/DOCUMENTACION', (req, res) =>
     .status(402)
     .json({
       error:
-        'Para acceder a la documentación necesita pagar una subscripción mensuaul.',
+        'Para acceder a la documentación necesita pagar una subscripción mensual.',
     })
 );
 

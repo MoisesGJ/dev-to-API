@@ -1,50 +1,37 @@
-const mongoose = require('mongoose');
-const userSchema = new mongoose.Schema({
+const { Schema, model } = require('mongoose');
+
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 50,
     trim: true,
   },
-  lastname: {
+  profilePic: {
     type: String,
+    match:
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm,
     required: true,
-    minlength: 2,
-    maxlength: 50,
     trim: true,
   },
   email: {
     type: String,
-    match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-    trim: true,
+    match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm,
     required: true,
+    trim: true,
   },
   password: {
     type: String,
-    trim: true,
+    match: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/gm,
     required: true,
-    match: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
   },
-  profilePic: {
-    type: String,
-    required: true,
-    match:
-      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/,
-    trim: true,
-  },
-  created: {
+  created_at: {
     type: Date,
-    required: true,
     default: new Date(),
   },
-  updated: {
+  updated_at: {
     type: Date,
-    required: true,
     default: new Date(),
   },
 });
 
-const UserModel = mongoose.model('user', userSchema);
-
-module.exports = UserModel;
+module.exports = model('user', userSchema);

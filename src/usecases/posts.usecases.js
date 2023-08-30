@@ -12,7 +12,7 @@ async function getAll(idFilter) {
     filters._id = idFilter;
   }
 
-  return await Post.find(filters);
+  return await Post.find(filters).populate('user');
 }
 
 async function create(postData) {

@@ -25,6 +25,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await posts.getByID(id);
+
+    res.json({ message: 'Post found', post });
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message });
+  }
+});
+
 router.post('/', auth, async (req, res) => {
   try {
     const postData = req.body;

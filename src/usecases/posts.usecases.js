@@ -78,9 +78,20 @@ async function updateById(id, postData) {
   return postUpdated;
 }
 
+async function getByID(id) {
+  if (!mongoose.isValidObjectId(id)) throw new createError(400, 'Id not valid');
+
+  const post = await Post.findById(id).populate('user');
+
+  if (!post) throw new createError(404, 'Id not found');
+
+  return post;
+}
+
 module.exports = {
   getAll,
   create,
   deleteById,
   updateById,
+  getByID,
 };

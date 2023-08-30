@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -16,10 +16,23 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tags: {
+    type: [String],
+    required: true,
+    trim: true,
+  },
+  rank: {
+    type: Number,
+    required: true,
+  },
+  relevant: {
+    type: Boolean,
+    required: true,
+  },
   user: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
-    ref: "user",
+    ref: 'user',
     trim: true,
   },
   createdAt: {
@@ -34,4 +47,4 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("post", postSchema);
+module.exports = mongoose.model('post', postSchema);

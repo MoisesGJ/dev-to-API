@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('node:fs/promises');
 
 const authRouter = require('./routes/auth.router');
 const usersRouter = require('./routes/users.router');
@@ -12,14 +13,10 @@ app.use(express.json());
 
 app.get('/', (req, res) => res.json({ message: 'Dev-To API | v1.0.0' }));
 
-app.get('/DOCUMENTACION', (req, res) =>
-  res
-    .status(402)
-    .json({
-      error:
-        'Para acceder a la documentación necesita pagar una subscripción mensual.',
-    })
-);
+app.get('/DOCUMENTACION', async (req, res) => {
+  const insomnia = await fs.readFile('./INSOMNIA.json', 'utf-8');
+  res.json(JSON.parse(insomnia));
+});
 
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
